@@ -3,6 +3,7 @@ const { route } = require("./ticket.router")
 const router = express.Router()
 const { insertUser, getUserByEmail } = require("../model/user/user.model")
 const { hashPassword, unHashPassword } = require("../utils/bcrypt.helper")
+const { createAccessJwt, createRefreshJwt} = require("../utils/jwt.helper")
 
 router.all('/', (req, res, next) => {
     //res.json({mesage: "return from user router"})
@@ -45,9 +46,16 @@ router.post("/login", async (req,res)=>{
 
     //comapre password
     const result = await unHashPassword(password,passFromDb)
-    console.log(result)
 
-    res.json({status: "login success"})
+    //user endpoint
+    if (!result){
+        res.json({status: "error", message: "incorrect email or password"})
+    }
+   const accessJWT = await createAccessJwt(user.email, `${user._id}`)
+
+   const refreshJWT = await createRefreshJwt(user.email)
+
+    res.json({status: "login success", accessJWT, refreshJWT})
 })
 
 
