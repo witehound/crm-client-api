@@ -18,7 +18,7 @@ const userSchema = new Schema({
         required: true
     },
     phone : {
-        type: Number,
+        type: String,
         maxlength: 12,
         required: true
     },
@@ -30,7 +30,6 @@ const userSchema = new Schema({
     password : {
         type: String,
         minlength: 8,
-        maxlength: 50,
         required: true
     }
 })

@@ -27,6 +27,7 @@ mongoose.connect(process.env.MONGO_URL,
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
+
 if (process.env.NODE_ENV !== "production"){
     const mDb = mongoose.connection
     mDb.on("open", () => {
