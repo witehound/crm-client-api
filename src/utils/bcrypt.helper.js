@@ -8,6 +8,18 @@ const hashPassword = plainPassword => {
     })
 }
 
+const unHashPassword = (plainPassword, passFromDb) => {
+    return new Promise((resolve, reject)=>{
+        bycrypt.compare(plainPassword, passFromDb, function(err,result){
+           if (err){
+               reject(err)
+           }
+           resolve(result)
+        })
+    })
+}
+
 module.exports = {
-    hashPassword
+    hashPassword,
+    unHashPassword
 }
