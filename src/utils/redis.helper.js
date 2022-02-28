@@ -1,14 +1,18 @@
 const redis = require("redis")
-const client = redis.createClient({host:'0.0.0.0', port:'6379'})
+const client = redis.createClient()
 
 //redis://localhost:6379
-client.on('connect', function() {
-    console.log('Connected!');
+client.on('connection', function() {
+    console.log("welcome ");
   });
 
 
 const setJwt = (key, value) => {
-    console.log(typeof key, typeof value)
+    client.on('connection', function() {
+        console.log("welcome ");
+      });
+      
+    console.log(typeof key, "wait")
     return new Promise((resolve, reject) => {
         try {
             client.set(key, value, (err, res)=>{

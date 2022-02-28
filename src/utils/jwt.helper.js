@@ -7,7 +7,7 @@ const createAccessJwt = async (email, _id) => {
         const accessJwt = await jwt.sign({email}, process.env.JWT_ACCESS_SECRET,
         {expiresIn: "15m"})
 
-        //await setJwt(accessJwt, _id)
+        await setJwt(accessJwt, _id)
 
         return Promise.resolve(accessJwt, _id)
     } catch (error) {
